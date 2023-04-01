@@ -18,6 +18,8 @@ namespace ParcialScripting
             this.power = power;
             this.durability = durability;
 
+            if (power <0 || durability <= 0) throw new ArgumentException();
+
             if (species == "Human")
             {
                 type = (int)Item.species.Human;
