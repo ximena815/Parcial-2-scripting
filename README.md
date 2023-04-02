@@ -1,3 +1,3 @@
 # ParcialScripting
-
-no me responte git QwQ
+Ximena Alejandra Duarte Chamorro
+Daniel Rua Montaño
