@@ -8,8 +8,10 @@ namespace ParcialScripting
 {
     public abstract class Item
     {
-        public string name;
-        public int power, durability, type;
+        internal string name;
+        internal int power, type;
+        internal int durability;
+
         public enum species {Human = 0, Beast = 1, Hybrid = 2, Any = 3 };
 
         public Item(string name, int power, int durability, string species)
@@ -36,6 +38,10 @@ namespace ParcialScripting
             {
                 type = (int)Item.species.Any;
             }
+        }
+        public int getDurability()
+        {
+            return this.durability;
         }
     }
 }

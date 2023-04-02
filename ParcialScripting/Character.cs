@@ -9,7 +9,8 @@ namespace ParcialScripting
     public class Character
     {
         public string name;
-        public int hp, attack, defense, type;
+        public int hp, attack, defense;
+        private int type;
         public Weapon? weapon; //This means it can be null.
         public Shield? shield;
         public enum species { Human = 0, Beast = 1, Hybrid = 2 };
@@ -67,14 +68,14 @@ namespace ParcialScripting
         public void PickWeapon(Weapon weapon)
         {
             if((this.type == weapon.type || weapon.type == 3)
-                && weapon.durability > 0 ) this.weapon = weapon;
+                && weapon.getDurability() > 0 ) this.weapon = weapon;
 
         }
 
         public void PickShield(Shield shield)
         {
             if ((this.type == shield.type || shield.type == 3)
-                && shield.durability > 0) this.shield = shield;
+                && shield.getDurability() > 0) this.shield = shield;
         }
 
         public bool hasWeapon()
@@ -91,11 +92,11 @@ namespace ParcialScripting
         {
             if (this.hasWeapon())
             {
-                if (this.weapon.durability <= 0) this.weapon = null;
+                if (this.weapon.getDurability() <= 0) this.weapon = null;
             }
             if (this.hasShield())
             {
-                if (this.shield.durability <= 0) this.shield = null;
+                if (this.shield.getDurability() <= 0) this.shield = null;
             }
         }
 
@@ -112,17 +113,20 @@ namespace ParcialScripting
                 else
                 {
                     c.hp -= this.weapon.power;
+                    if (c.hp < 0) c.hp = 0;
                 }
             }
             else
             {
                 if (c.hasShield())
                 {
-                    c.shield.durability -= this.attack / 2;
+                    if (this.attack == 0) c.shield.durability--;
+                    else c.shield.durability -= this.attack / 2;
                 }
                 else
                 {
                     c.hp -= this.attack;
+                    if (c.hp < 0) c.hp = 0;
                 }
             }
             c.isDamaged();
